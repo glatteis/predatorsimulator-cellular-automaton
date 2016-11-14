@@ -68,7 +68,6 @@ class PredatorScreen : Screen {
         shapeRenderer.transformMatrix = camera.view
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
 
-
         //Iterate through every position and draw the entity in its position
         for ((position, entity) in entities) {
             entity.draw(shapeRenderer, position)
@@ -89,9 +88,8 @@ class PredatorScreen : Screen {
     val updatedEntities = HashMap<Pair<Int, Int>, AnimalType>()
     val emptyLand = HashSet<Pair<Int, Int>>()
     val countedNeighbors = LinkedHashMap<AnimalType, Int>()
+    
     fun updateAnimals() {
-
-
         updatedEntities.clear()
         emptyLand.clear()
 
@@ -113,7 +111,6 @@ class PredatorScreen : Screen {
                 emptyLand.add(Pair(position.first, position.second))
             }
         }
-
 
         //Go through every position that is now empty and throw the dice, give it to one of the entities around
         //If an AnimalType has 3 entities around the empty field it will get a 3/9 chance of winning and so forth
@@ -147,16 +144,16 @@ class PredatorScreen : Screen {
         entities.clear()
         entities.putAll(updatedEntities)
     }
+    
+    override fun resize(width: Int, height: Int) {
+        //Update window size on resize
+        viewport.update(width, height)
+    }
 
     override fun show() {
     }
 
     override fun pause() {
-    }
-
-    override fun resize(width: Int, height: Int) {
-        //Update window size on resize
-        viewport.update(width, height)
     }
 
     override fun hide() {
